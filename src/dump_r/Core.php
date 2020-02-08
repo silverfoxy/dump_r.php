@@ -18,15 +18,19 @@ class Core {
 
 		Type::$dic = [];
 
-		if (PHP_SAPI == 'cli' || !$html)
+		// if (PHP_SAPI == 'cli' || !$html)
+		if (!$html) {
 			$out = $root->text0($file, $line, $key);
-		else
+			echo $out;
+		}
+		else {
 			$out = $root->html0($file, $line, $key, $expand);
+			file_put_contents('dump.html', $out, FILE_APPEND);
+		}
 
 		if ($ret)
 			return $out;
 
-		echo $out;
 	}
 
 	public static function rand_str($chars = 8) {
